@@ -19,7 +19,7 @@ void draw()
 {
  if (myClient.available() > 0 ) {
     String inString = myClient.readStringUntil('\n');
-    println(inString);//instring is the data being trasnmitted from whatever you ask it to return
+    println(inString);//instring is the data being trasnmitted from POG_LEFT and POG_RIGHT. You can then parce the data if you want.
   } 
 }
 void keyPressed(){
@@ -43,11 +43,14 @@ void calibrate(int state)
 
 
 void DATA_TRANSMISSION(int state)
-{  
+{  //sends left and right eye point of gaze. 
    //see api documentation for reference on commands
   String POG_LEFT = "<SET ID=\"ENABLE_SEND_POG_LEFT\" STATE=\"" + state + "\" />" ;
+  String POG_RIGHT = "<SET ID=\"ENABLE_SEND_POG_RIGHT\" STATE=\"" + state + "\" />" ;
   String SEND_DATA = "<SET ID=\"ENABLE_SEND_DATA\" STATE=\"" + state + "\" />" ;
   myClient.write(POG_LEFT);
+  myClient.write("\r\n");  
+  myClient.write(POG_RIGHT);
   myClient.write("\r\n");  
   myClient.write(SEND_DATA);
   myClient.write("\r\n");
